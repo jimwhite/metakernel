@@ -2,6 +2,16 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.30.3.1
+
+([Full Changelog](https://github.com/Calysto/metakernel/compare/v0.30.3...v0.30.3.1))
+
+### Bugs fixed
+
+- Fix %magic throws error - string indices must be integers [#232](https://github.com/Calysto/metakernel/issues/232)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.30.3
 
 ([Full Changelog](https://github.com/Calysto/metakernel/compare/v0.30.2...864d7a2d768b082d7e86a102dde883845db27035))
@@ -16,8 +26,6 @@
 ([GitHub contributors page for this release](https://github.com/Calysto/metakernel/graphs/contributors?from=2024-03-26&to=2025-04-02&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3ACalysto%2Fmetakernel+involves%3Ablink1073+updated%3A2024-03-26..2025-04-02&type=Issues) | [@dsblank](https://github.com/search?q=repo%3ACalysto%2Fmetakernel+involves%3Adsblank+updated%3A2024-03-26..2025-04-02&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.30.2
 
