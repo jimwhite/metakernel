@@ -27,8 +27,6 @@
 
 [@blink1073](https://github.com/search?q=repo%3ACalysto%2Fmetakernel+involves%3Ablink1073+updated%3A2024-03-26..2025-04-02&type=Issues) | [@dsblank](https://github.com/search?q=repo%3ACalysto%2Fmetakernel+involves%3Adsblank+updated%3A2024-03-26..2025-04-02&type=Issues)
 
-<!-- <END NEW CHANGELOG ENTRY> -->
-
 ## 0.30.2
 
 ([Full Changelog](https://github.com/Calysto/metakernel/compare/v0.30.1...16f88e281040b5698b5eec32b580854424a236f7))
