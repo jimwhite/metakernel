@@ -11,6 +11,10 @@ on:
         required: false
         type: boolean
         default: false
+  # Also trigger when a tag matching v*.*.* is pushed
+  push:
+    tags:
+      - 'v*.*.*'
 
 permissions:
   contents: write
@@ -53,10 +57,17 @@ jobs:
       - name: Extract version from tag
         id: version
         run: |
-          TAG="${{ github.event.inputs.tag }}"
+          # Get tag from workflow input or from git ref
+          if [ -n "${{ github.event.inputs.tag }}" ]; then
+            TAG="${{ github.event.inputs.tag }}"
+          else
+            TAG="${GITHUB_REF#refs/tags/}"
+          fi
           VERSION="${TAG#v}"
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
           echo "Version: ${VERSION}"
+          echo "Tag: ${TAG}"
 
       - name: Create Release
         id: create_release
@@ -64,8 +75,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.event.inputs.tag }}
-          release_name: ${{ github.event.inputs.tag }}
+          tag_name: ${{ steps.version.outputs.tag }}
+          release_name: ${{ steps.version.outputs.tag }}
           body: |
             ## Release ${{ steps.version.outputs.version }}
             
@@ -80,14 +91,14 @@ jobs:
             Or install from source:
             
             ```bash
-            pip install https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag }}/metakernel-${{ steps.version.outputs.version }}.tar.gz
+            pip install https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/metakernel-${{ steps.version.outputs.version }}.tar.gz
             ```
             
             ### Checksums
             
             See the attached `checksums.txt` file for SHA256 checksums of all artifacts.
           draft: false
-          prerelease: ${{ github.event.inputs.prerelease }}
+          prerelease: ${{ github.event.inputs.prerelease || false }}
 
       - name: Upload wheel
         uses: actions/upload-release-asset@v1
@@ -121,5 +132,5 @@ jobs:
 
       - name: Release created
         run: |
-          echo "✅ Release ${{ github.event.inputs.tag }} created successfully!"
+          echo "✅ Release ${{ steps.version.outputs.tag }} created successfully!"
           echo "Release URL: ${{ steps.create_release.outputs.html_url }}"
